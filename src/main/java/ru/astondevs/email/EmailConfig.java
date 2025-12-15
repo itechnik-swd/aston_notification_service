@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class EmailConfig {
 
     @Bean
-    public MockEmailService mockMailSender() {
+    public EmailService mockMailSender() {
         log.info("Creating mock JavaMailSender");
         return new MockEmailService();
     }

@@ -10,14 +10,16 @@ import ru.astondevs.kafka.event.UserEvent;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class UserEventConsumer { //UserEventListener
+public class UserEventConsumer {
 
     private final MockEmailService mockEmailService;
 
     @KafkaListener(topics = "${spring.kafka.consumer.topics}",
             groupId = "${spring.kafka.consumer.group-id}")
     public void consumeUserEvent(UserEvent event) {
-        log.info("Received user event: {} for user: {}", event.eventType(), event.email());
+        log.info("Received user event: {} for user with email: {}",
+                event.eventType(),
+                event.email());
 
         try {
             switch (event.eventType()) {

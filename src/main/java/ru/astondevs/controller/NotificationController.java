@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.astondevs.email.MockEmailService;
+import ru.astondevs.email.EmailService;
 
 @Slf4j
 @RestController
@@ -15,11 +15,10 @@ import ru.astondevs.email.MockEmailService;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final MockEmailService mockEmailService;
+    private final EmailService mockEmailService;
 
     @PostMapping("/email/account-created")
-    public ResponseEntity<String> sendAccountCreatedEmail(@RequestParam String email,
-                                                          @RequestParam String username) {
+    public ResponseEntity<String> sendAccountCreatedEmail(@RequestParam String email) {
         log.info("Sending account creation email to: {}", email);
 
         mockEmailService.sendAccountCreatedEmail(email);
@@ -28,8 +27,7 @@ public class NotificationController {
     }
 
     @PostMapping("/email/account-deleted")
-    public ResponseEntity<String> sendAccountDeletedEmail(@RequestParam String email,
-                                                          @RequestParam String username) {
+    public ResponseEntity<String> sendAccountDeletedEmail(@RequestParam String email) {
         log.info("Sending account deletion email to: {}", email);
 
         mockEmailService.sendAccountDeletedEmail(email);

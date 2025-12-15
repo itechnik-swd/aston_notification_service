@@ -5,15 +5,15 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("dev") // Только для профиля dev
+@Profile("dev")
 @Slf4j
-public class MockEmailService {
+public class MockEmailService implements EmailService {
 
     public void sendAccountCreatedEmail(String toEmail) {
         log.info("""
             ===== MOCK EMAIL SENT =====
             To: {}
-            Subject: Добро пожаловать!
+            Subject: Аккаунт создан.
             Message: Здравствуйте! Ваш аккаунт был успешно создан.
             ============================
             """, toEmail);
@@ -23,8 +23,8 @@ public class MockEmailService {
         log.info("""
             ===== MOCK EMAIL SENT =====
             To: {}
-            Subject: Ваш аккаунт был удалён
-            Message: Здравствуйте! Ваш аккаунт был удалён.
+            Subject: Аккаунт удалён.
+            Message: Здравствуйте! Ваш аккаунт на сайте www.ваш.сайт был удалён.
             ============================
             """, toEmail);
     }
