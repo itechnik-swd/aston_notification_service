@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import ru.astondevs.email.MockEmailService;
+import ru.astondevs.email.EmailService;
 import ru.astondevs.kafka.event.UserEvent;
 
 @Slf4j
@@ -12,9 +12,9 @@ import ru.astondevs.kafka.event.UserEvent;
 @RequiredArgsConstructor
 public class UserEventConsumer {
 
-    private final MockEmailService mockEmailService;
+    private final EmailService emailService;
 
-    @KafkaListener(topics = "${spring.kafka.consumer.topics}",
+    @KafkaListener(topics = "${app.kafka.topics.user-events}",
             groupId = "${spring.kafka.consumer.group-id}")
     public void consumeUserEvent(UserEvent event) {
         log.info("Received user event: {} for user with email: {}",
@@ -24,11 +24,11 @@ public class UserEventConsumer {
         try {
             switch (event.eventType()) {
               case USER_CREATED:
-                  mockEmailService.sendAccountCreatedEmail(event.email());
+                  emailService.sendAccountCreatedEmail(event.email());
                   log.info("Account created email sent to: {}", event.email());
                   break;
               case USER_DELETED:
-                  mockEmailService.sendAccountDeletedEmail(event.email());
+                  emailService.sendAccountDeletedEmail(event.email());
                   log.info("Account deleted email sent to: {}", event.email());
                   break;
               default:

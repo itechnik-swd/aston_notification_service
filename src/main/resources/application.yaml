@@ -8,25 +8,36 @@ spring:
       group-id: notification-service-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      topics: user-events-topic
       properties:
         spring.json.type.mapping: userEvent:ru.astondevs.kafka.event.UserEvent
         spring.json.trusted.packages: "ru.astondevs.*"
         auto.offset.reset: earliest
 
-    mail:
+  config:
+    import: optional:file:mail.env[.properties]
+
+  mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME:your-email@gmail.com}
-    password: ${MAIL_PASSWORD:your-app-password}
-    from: no-reply@example.com
-    site-url: https://example.com
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    protocol: smtp
+    default-encoding: UTF-8
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+            required: true
+
+app:
+  kafka:
+    topics:
+      user-events: user-events-topic
+  email:
+    from: no-reply@example.com
+    site-url: https://example.com
 
 server:
   port: 8081

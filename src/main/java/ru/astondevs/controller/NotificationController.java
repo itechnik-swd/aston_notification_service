@@ -15,13 +15,13 @@ import ru.astondevs.email.EmailService;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final EmailService mockEmailService;
+    private final EmailService emailService;
 
     @PostMapping("/email/account-created")
     public ResponseEntity<String> sendAccountCreatedEmail(@RequestParam String email) {
         log.info("Sending account creation email to: {}", email);
 
-        mockEmailService.sendAccountCreatedEmail(email);
+        emailService.sendAccountCreatedEmail(email);
 
         return ResponseEntity.ok("Account creation email sent successfully");
     }
@@ -30,7 +30,7 @@ public class NotificationController {
     public ResponseEntity<String> sendAccountDeletedEmail(@RequestParam String email) {
         log.info("Sending account deletion email to: {}", email);
 
-        mockEmailService.sendAccountDeletedEmail(email);
+        emailService.sendAccountDeletedEmail(email);
 
         return ResponseEntity.ok("Account deletion email sent successfully");
     }
