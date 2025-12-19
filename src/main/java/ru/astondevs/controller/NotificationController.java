@@ -18,19 +18,19 @@ public class NotificationController {
     private final EmailService emailService;
 
     @PostMapping("/email/account-created")
-    public ResponseEntity<String> sendAccountCreatedEmail(@RequestParam String email) {
-        log.info("Sending account creation email to: {}", email);
+    public ResponseEntity<String> sendAccountCreatedEmail(@RequestParam String toEmail) {
+        log.info("Sending account creation email to: {}", toEmail);
 
-        emailService.sendAccountCreatedEmail(email);
+        emailService.sendAccountCreatedEmail(toEmail);
 
         return ResponseEntity.ok("Account creation email sent successfully");
     }
 
     @PostMapping("/email/account-deleted")
-    public ResponseEntity<String> sendAccountDeletedEmail(@RequestParam String email) {
-        log.info("Sending account deletion email to: {}", email);
+    public ResponseEntity<String> sendAccountDeletedEmail(@RequestParam String toEmail) {
+        log.info("Sending account deletion email to: {}", toEmail);
 
-        emailService.sendAccountDeletedEmail(email);
+        emailService.sendAccountDeletedEmail(toEmail);
 
         return ResponseEntity.ok("Account deletion email sent successfully");
     }

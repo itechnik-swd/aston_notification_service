@@ -11,5 +11,12 @@
   "_Здравствуйте! Ваш аккаунт был удалён._". Создание - "_Здравствуйте! Ваш 
   аккаунт на сайте ваш сайт был успешно создан._"
 * Также отдельно добавить API, которая будет отправлять сообщение на почту
-  (почти тот же функционал, что и через кафку).
+  (почти тот же функционал, что и через kafka).
 * Написать интеграционные тесты для проверки отправки сообщения на почту.
+
+### Методы контороллера:
+    sendAccountCreatedEmail(String toEmail)
+  **POST** http://localhost:8081/api/v1/notifications/email/account-created?email=toEmail
+
+    sendAccountDeletedEmail(String toEmail)
+  **POST** http://localhost:8081/api/v1/notifications/email/account-deleted?email=toEmail
